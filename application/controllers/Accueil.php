@@ -13,13 +13,7 @@ class Accueil extends CI_Controller
 		$this->layout->set_meta_description("Retrouvez les dernières actualités du groupe, les prochains évènements et bien plus encore !");
 		
 		$this->layout->ajouter_js("nodes");
-		
-		// Récupération des derniers évènements
-		//$data["tableau_evenements"] = $this->evenements_model->recuperer_evenement_limit();
-		
-		// Récupération des dernières actualités
-		//$data["tableau_actualites"] = $this->actualites_model->recuperer_actualite_limit();
-		
+		 
 		// Affichage du template
 		$this->layout->view('accueil/accueil');
 	}

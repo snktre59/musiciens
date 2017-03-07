@@ -15,7 +15,7 @@
             <i class="material-icons prefix">perm_identity</i>
             <input id="PSEUDO" name="PSEUDO" type="text" value="<?php echo set_value('PSEUDO'); ?>">
             <label for="PSEUDO">Pseudonyme</label>
-          </div>
+          </div> 
         </div>
         <?php echo form_error('PSEUDO'); ?>
         

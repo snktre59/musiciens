@@ -114,45 +114,42 @@ class Utilisateurs extends CI_Controller {
 		//Chargement des ressources CSS
 		$this->layout->ajouter_css("passwordChecker");
 		$this->layout->ajouter_css("utilisateurs/inscription");
-		
+		 
 		// Définition du titre de la page
 		$this->layout->set_titre("Porn Addicted | Inscription");
 		
 		// Définition des règles de champs
-		//$this->form_validation->set_rules('NOM', '"Nom"', 'trim|required|encode_php_tags');
-		//$this->form_validation->set_rules('PRENOM', '"Prénom"', 'trim|required|encode_php_tags');
-		$this->form_validation->set_rules('PSEUDO', '"Pseudo"', 'trim|required|encode_php_tags|is_unique[utilisateurs.PSEUDO]');
+		$this->form_validation->set_rules('NOM', '"Nom"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('PRENOM', '"Prénom"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('ADRESSE_EMAIL', '"Adresse email"', 'trim|required|valid_email|encode_php_tags|is_unique[utilisateurs.ADRESSE_EMAIL]');
-		//$this->form_validation->set_rules('ROLE', '"Rôle"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('ROLE', '"Rôle"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE', '"Mot de passe"', 'trim|required|matches[MOT_DE_PASSE_CONFIRMATION]|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE_CONFIRMATION', '"Mot de passe confirmation"', 'trim|required|encode_php_tags');
-		//$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|required|numeric|encode_php_tags');
-		//$this->form_validation->set_rules('CODE_POSTAL', '"Code postal"', 'trim|numeric|exact_length[5]|required|encode_php_tags');
-		//$this->form_validation->set_rules('VILLE', '"Ville"', 'trim|required|encode_php_tags');
-		//$this->form_validation->set_rules('ADRESSE_POSTALE', '"Adresse"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|required|numeric|encode_php_tags');
+		$this->form_validation->set_rules('CODE_POSTAL', '"Code postal"', 'trim|numeric|exact_length[5]|required|encode_php_tags');
+		$this->form_validation->set_rules('VILLE', '"Ville"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('ADRESSE_POSTALE', '"Adresse"', 'trim|required|encode_php_tags');
 		
 		// Si le formulaire est correctement renseigné
 		if($this->form_validation->run())
 		{	               
 			// Récupération des variables postées
-			$pseudo = $this->input->post('PSEUDO');
 			$nom = $this->input->post('NOM');
 			$prenom = $this->input->post('PRENOM');
-			$adresse_postale = $this->input->post('ADRESSE_POSTALE');
-			$code_postal = $this->input->post('CODE_POSTAL');
+			$adresseEmail = $this->input->post('ADRESSE_EMAIL');
+			$numeroDeTelephone = $this->input->post('NUMERO_DE_TELEPHONE');
+			$codePostal = $this->input->post('CODE_POSTAL');
 			$ville = $this->input->post('VILLE');
-			$adresse_email = $this->input->post('ADRESSE_EMAIL');
-			$numero_de_telephone = $this->input->post('NUMERO_DE_TELEPHONE');
-			$adresse_ip_derniere_connexion = $this->input->ip_address();
-			$mot_de_passe = password_hash($this->input->post('MOT_DE_PASSE'), PASSWORD_BCRYPT);
-			$role = $this->input->post('ROLE');
+			$adresseIpDerniereConnexion = $this->input->ip_address();
+			$motDePasse = password_hash($this->input->post('MOT_DE_PASSE'), PASSWORD_BCRYPT);
+			$typeUtilisateur = $this->input->post('TYPE_UTILISATEUR');
 			$token_id = md5(microtime(TRUE)*100000);
 			
 			
 			
 			
 			// L'utilisateur à été ajouté en BDD
-			if($utilisateurCourant->inscrire($pseudo, $nom, $prenom, $adresse_postale, $code_postal, $ville, $adresse_email, $numero_de_telephone, $adresse_ip_derniere_connexion, $mot_de_passe, $role, $token_id) == TRUE){
+			if($utilisateurCourant->inscrire($nom, $prenom, $adresseEmail, $numeroDeTelephone, $codePostal, $ville, $numero_de_telephone, $adresseIpDerniereConnexion, $motDePasse, $typeUtilisateur, $token_id) == TRUE){
 				
 				$this->load->library("email_templates");
 				
@@ -194,7 +191,7 @@ class Utilisateurs extends CI_Controller {
 		else
 		{
 			// Affichage
-			$this->layout->view('utilisateurs/inscription');
+			$this->layout->view('accueil/accueil');
 		}
 	}
 	

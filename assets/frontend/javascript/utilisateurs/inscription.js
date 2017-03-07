@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $('select').material_select();
+    //$('select').material_select();
 
-    $("input#pwd").on("focus keyup", function () {
+    $("input#motDePasse").on("focus keyup", function () {
             var score = 0;
             var a = $(this).val();
             var desc = new Array();
@@ -59,7 +59,7 @@ $(document).ready(function() {
             }
     });
     
-    $("input#pwd").blur(function () {
+    $("input#motDePasse").blur(function () {
             $("#pwd_strength_wrap").fadeOut(400);
     });
 });

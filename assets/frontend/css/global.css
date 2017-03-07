@@ -58,3 +58,7 @@ canvas#spiders {
     /* height: 532px; */
     height: 100%;
 }
+
+.italic {
+    font-style: italic;
+}
