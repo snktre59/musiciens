@@ -5,39 +5,48 @@
     <section id="head-panel">
         <h2 class="title-main">Trouvez un musicien près de chez vous !</h2>
         <label>Vous recherchez un groupe ?</label>&nbsp;<label>Vous recherchez un musicien ?</label>
-        <form class="pure-form pure-form-stacked" id="inscriptionMusicien" type="POST" action="<?php echo base_url('utilisateurs/inscription'); ?>"> <!-- Changer l'ID lors du switch -->
+        <?php $attributs = array('id' => 'FORMULAIRE_INSCRIPTION_MUSICIEN', 'class' => 'pure-form pure-form-stacked'); ?>
+        <?php echo form_open("utilisateurs/inscription", $attributs); ?><!-- Changer l'ID lors du switch -->
             <fieldset>
 
                 <label for="PRENOM">Prénom : *</label>
-                <input id="PRENOM" type="text" placeholder="Prénom">
+                <input id="PRENOM" type="text" name="PRENOM" placeholder="Prénom" value="<?php echo set_value('PRENOM'); ?>">
+                <?php echo form_error('PRENOM'); ?>
 
                 <label for="NOM">Nom : *</label>
-                <input id="NOM" type="text" placeholder="Nom">
+                <input id="NOM" type="text" name="NOM" placeholder="Nom" value="<?php echo set_value('NOM'); ?>">
+                <?php echo form_error('NOM'); ?>
 
                 <label for="ADRESSE_EMAIL">Adresse Email : *</label>
-                <input id="ADRESSE_EMAIL" type="email" placeholder="Adresse email">
+                <input id="ADRESSE_EMAIL" type="email" name="ADRESSE_EMAIL" placeholder="Adresse email" value="<?php echo set_value('ADRESSE_EMAIL'); ?>">
+                <?php echo form_error('ADRESSE_EMAIL'); ?>
 
                 <label for="NUMERO_DE_TELEPHONE">Numéro de téléphone :</label>
-                <input id="NUMERO_DE_TELEPHONE" type="text" placeholder="Numéro de téléphone">
+                <input id="NUMERO_DE_TELEPHONE" type="text" name="NUMERO_DE_TELEPHONE" placeholder="Numéro de téléphone" value="<?php echo set_value('NUMERO_DE_TELEPHONE'); ?>">
+                <?php echo form_error('NUMERO_DE_TELEPHONE'); ?>
 
                 <label for="CODE_POSTAL">Code Postal : *</label>
-                <input id="CODE_POSTAL" type="number" placeholder="Code postal" maxlength="5">
+                <input id="CODE_POSTAL" type="number" name="CODE_POSTAL" placeholder="Code postal" maxlength="5" value="<?php echo set_value('CODE_POSTAL'); ?>">
+                <?php echo form_error('CODE_POSTAL'); ?>
 
                 <label for="VILLE">Ville : *</label>
-                <input id="VILLE" type="text" placeholder="Ville">
+                <input id="VILLE" type="text" name="VILLE" placeholder="Ville" value="<?php echo set_value('VILLE'); ?>">
+                <?php echo form_error('VILLE'); ?>
 
                 <label for="MOT_DE_PASSE">Mot de passe : *</label>
-                <input id="MOT_DE_PASSE" type="password" placeholder="Mot de passe">
+                <input id="MOT_DE_PASSE" type="password" name="MOT_DE_PASSE" placeholder="Mot de passe" value="<?php echo set_value('MOT_DE_PASSE'); ?>">
+                <?php echo form_error('MOT_DE_PASSE'); ?>
 
                 <label for="MOT_DE_PASSE_CONFIRMATION">Confirmation ; *</label>
-                <input id="MOT_DE_PASSE_CONFIRMATION" type="password" placeholder="Confirmation du mot de passe">
+                <input id="MOT_DE_PASSE_CONFIRMATION" type="password" name="MOT_DE_PASSE_CONFIRMATION" placeholder="Confirmation du mot de passe" value="<?php echo set_value('MOT_DE_PASSE_CONFIRMATION'); ?>">
+                <?php echo form_error('MOT_DE_PASSE_CONFIRMATION'); ?>
 
-                <input type="hidden" name="TYPE_MUSICIEN" value="MUSICIEN" />
+                <input type="hidden" name="TYPE_UTILISATEUR" value="MUSICIEN" />
 
                 <label class="italic">Les champs marqués par un astérix sont obligatoires.</label><br />
 
                 <button type="submit" class="pure-button">S'inscrire</button>
             </fieldset>
-        </form>
+        <?php echo form_close(); ?>
     </section>
 </div> 

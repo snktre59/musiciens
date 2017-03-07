@@ -88,18 +88,14 @@ class CI_Form_validation {
 	 *
 	 * @var string
 	 */
-	protected $_error_prefix	= '<div id="card-alert" class="card red">
-                      <div class="card-content white-text">
-                        <p><i class="material-icons prefix">error_outline</i>';
+	protected $_error_prefix	= '<p id="ERREUR_FORMULAIRE">';
 
 	/**
 	 * End tag for error wrapping
 	 *
 	 * @var string
 	 */
-	protected $_error_suffix	= '</p>
-                      </div>
-                    </div>';
+	protected $_error_suffix	= '</p>';
 
 	/**
 	 * Custom error message

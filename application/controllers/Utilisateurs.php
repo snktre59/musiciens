@@ -107,13 +107,6 @@ class Utilisateurs extends CI_Controller {
 		
 		//Chargement des modèles
 		$this->load->model("utilisateurs_model");
-		
-		//Chargement des ressources JAVASCRIPT
-		$this->layout->ajouter_js("utilisateurs/inscription");
-
-		//Chargement des ressources CSS
-		$this->layout->ajouter_css("passwordChecker");
-		$this->layout->ajouter_css("utilisateurs/inscription");
 		 
 		// Définition du titre de la page
 		$this->layout->set_titre("Porn Addicted | Inscription");
@@ -122,14 +115,13 @@ class Utilisateurs extends CI_Controller {
 		$this->form_validation->set_rules('NOM', '"Nom"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('PRENOM', '"Prénom"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('ADRESSE_EMAIL', '"Adresse email"', 'trim|required|valid_email|encode_php_tags|is_unique[utilisateurs.ADRESSE_EMAIL]');
-		$this->form_validation->set_rules('ROLE', '"Rôle"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('TYPE_UTILISATEUR', '"Rôle"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE', '"Mot de passe"', 'trim|required|matches[MOT_DE_PASSE_CONFIRMATION]|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE_CONFIRMATION', '"Mot de passe confirmation"', 'trim|required|encode_php_tags');
-		$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|required|numeric|encode_php_tags');
+		$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|required|numeric|exact_length[10]|encode_php_tags');
 		$this->form_validation->set_rules('CODE_POSTAL', '"Code postal"', 'trim|numeric|exact_length[5]|required|encode_php_tags');
 		$this->form_validation->set_rules('VILLE', '"Ville"', 'trim|required|encode_php_tags');
-		$this->form_validation->set_rules('ADRESSE_POSTALE', '"Adresse"', 'trim|required|encode_php_tags');
-		
+		//var_dump($this->input->post()); die();
 		// Si le formulaire est correctement renseigné
 		if($this->form_validation->run())
 		{	               
@@ -143,13 +135,13 @@ class Utilisateurs extends CI_Controller {
 			$adresseIpDerniereConnexion = $this->input->ip_address();
 			$motDePasse = password_hash($this->input->post('MOT_DE_PASSE'), PASSWORD_BCRYPT);
 			$typeUtilisateur = $this->input->post('TYPE_UTILISATEUR');
-			$token_id = md5(microtime(TRUE)*100000);
+			$tokenId = md5(microtime(TRUE)*100000);
 			
 			
 			
 			
 			// L'utilisateur à été ajouté en BDD
-			if($utilisateurCourant->inscrire($nom, $prenom, $adresseEmail, $numeroDeTelephone, $codePostal, $ville, $numero_de_telephone, $adresseIpDerniereConnexion, $motDePasse, $typeUtilisateur, $token_id) == TRUE){
+			if($utilisateurCourant->inscrire($nom, $prenom, $adresseEmail, $numeroDeTelephone, $codePostal, $ville, $adresseIpDerniereConnexion, $motDePasse, $typeUtilisateur, $tokenId) == TRUE){
 				
 				$this->load->library("email_templates");
 				
@@ -159,7 +151,7 @@ class Utilisateurs extends CI_Controller {
 					Under Shift.
 				';
 				// Envoi d'un mail de confirmation
-				if($this->email_templates->inscription_validation("noreply@undershift.fr", "UNDER SHIFT", $adresse_email, $token_id, "Confirmez votre inscription", $message)){
+				if($this->email_templates->inscription_validation("noreply@undershift.fr", "UNDER SHIFT", $adresseEmail, $tokenId, "Confirmez votre inscription", $message)){
 					// Ajout d'un message de confirmation
 					$this->layout->set_flashdata_message('green', "Votre inscription s'est déroulée correctement. Vous allez recevoir un email avec les détails pour l'activation de votre compte.");
 					

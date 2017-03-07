@@ -9,13 +9,7 @@ body {
 }
 
 .header { background-image:url("../images/accueil/nodes-background.jpg"); overflow:hidden; margin:0; padding:0; background-size:cover;position:relative;}
-i {
-  position: absolute;
-  top:0; bottom:0;left:0;right:0;
-  display:block;
-  background:rgba(192, 57, 43,.5);
-  z-index:-1;
-}
+
 canvas#spiders {
   height:100vh;
 }
@@ -55,10 +49,15 @@ canvas#spiders {
     padding: 0;
     background-size: cover;
     position: relative;
-    /* height: 532px; */
-    height: 100%;
+    height: 2000px;
+    /*height: 100%;*/
 }
 
 .italic {
     font-style: italic;
+}
+
+#ERREUR_FORMULAIRE {
+    color: red!important;
+    font-size: 1em!important;
 }

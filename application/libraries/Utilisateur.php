@@ -39,21 +39,19 @@ class Utilisateur extends CI_Controller
         $dataUser = $CI->utilisateurs_model->getDataUtilisateurById($id);
         
         $this->id = (int)$dataUser["ID_UTILISATEUR"];
-        $this->pseudo = $dataUser["PSEUDO"];
         $this->nom = $dataUser["NOM"];
         $this->prenom = $dataUser["PRENOM"];
-        $this->adresse_postale = $dataUser["ADRESSE_POSTALE"];
-        $this->code_postal = $dataUser["CODE_POSTAL"];
+        $this->codePostal = $dataUser["CODE_POSTAL"];
         $this->ville = $dataUser["VILLE"];
-        $this->adresse_email = $dataUser["ADRESSE_EMAIL"];
-        $this->numero_de_telephone = $dataUser["NUMERO_DE_TELEPHONE"];
-        $this->adresse_ip_derniere_connexion = $dataUser["ADRESSE_IP_DERNIERE_CONNEXION"];
-        $this->date_inscription = $dataUser["DATE_INSCRIPTION"];
-        $this->type_abonnement = $dataUser["TYPE_ABONNEMENT"];
-        $this->date_souscription = $dataUser["DATE_SOUSCRIPTION"];
-        $this->role = $dataUser["ROLE"];
-        $this->statut_compte = $dataUser["STATUT_COMPTE"];
-        $this->token_id = $dataUser["TOKEN_ID"];
+        $this->adresseEmail = $dataUser["ADRESSE_EMAIL"];
+        $this->numeroDeTelephone = $dataUser["NUMERO_DE_TELEPHONE"];
+        $this->adresseIpDerniereConnexion = $dataUser["ADRESSE_IP_DERNIERE_CONNEXION"];
+        $this->dateInscription = $dataUser["DATE_INSCRIPTION"];
+        $this->typeAbonnement = $dataUser["TYPE_ABONNEMENT"];
+        $this->dateSouscription = $dataUser["DATE_SOUSCRIPTION"];
+        $this->typeUtilisateur = $dataUser["TYPE_UTILISATEUR"];
+        $this->statutCompte = $dataUser["STATUT_COMPTE"];
+        $this->tokenId = $dataUser["TOKEN_ID"];
         if($dataUser["ADRESSE_EMAIL"] == "visiteur"){
             $this->registered = FALSE;
         } else $this->registered = TRUE;
@@ -62,27 +60,22 @@ class Utilisateur extends CI_Controller
     /*
      * Fonction d'inscription d'un utilisateur
      */
-    public function inscrire($pseudo, $nom, $prenom, $adresse_postale, $code_postal, $ville, $adresse_email, $numero_de_telephone, $adresse_ip_derniere_connexion, $mot_de_passe, $role, $token_id)
+    public function inscrire($nom, $prenom, $adresseEmail, $numeroDeTelephone, $codePostal, $ville, $adresseIpDerniereConnexion, $motDePasse, $typeUtilisateur, $token_id)
 	{
          $CI =& get_instance();
          $CI->load->model("utilisateurs_model");
         // Création du tableau contenant les informations à propos de l'utilisateur
 		$tableau_utilisateur = array(
 			"ID_UTILISATEUR"		            =>		"",
-            "PSEUDO"                            =>      $pseudo,
 			"NOM"		                        =>		$nom,
 			"PRENOM"	                        =>		$prenom,
-			"ADRESSE_POSTALE"		            =>		$adresse_postale,
-			"CODE_POSTAL"			            =>		$code_postal,
+			"CODE_POSTAL"			            =>		$codePostal,
 			"VILLE"		                        =>		$ville,
-			"ADRESSE_EMAIL"		                =>		$adresse_email,
-			"NUMERO_DE_TELEPHONE"		        =>		$numero_de_telephone,
-			"ADRESSE_IP_DERNIERE_CONNEXION"	    =>		$adresse_ip_derniere_connexion,
-			"MOT_DE_PASSE"		                =>		$mot_de_passe,
-            "DATE_INSCRIPTION"                  =>      "",
-			"TYPE_ABONNEMENT"		            =>		"",
-            "DATE_SOUSCRIPTION"                 =>      "",    
-			"ROLE"	                            =>		$role,
+			"ADRESSE_EMAIL"		                =>		$adresseEmail,
+			"NUMERO_DE_TELEPHONE"		        =>		$numeroDeTelephone,
+			"ADRESSE_IP_DERNIERE_CONNEXION"	    =>		$adresseIpDerniereConnexion,
+			"MOT_DE_PASSE"		                =>		$motDePasse,  
+			"TYPE_UTILISATEUR"	                =>		$typeUtilisateur,
             "STATUT_COMPTE"                     =>      "INACTIF",
 			"TOKEN_ID"		                    =>		$token_id
 		);
@@ -126,22 +119,6 @@ class Utilisateur extends CI_Controller
     /**
      * @return mixed
      */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    /**
-     * @param mixed $nom
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->nom = $pseudo;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getNom()
     {
         return $this->nom;
@@ -176,15 +153,15 @@ class Utilisateur extends CI_Controller
      */
     public function getMotDePasse()
     {
-        return $this->mot_de_passe;
+        return $this->motDePasse;
     }
 
     /**
      * @param mixed $mot_de_passe
      */
-    public function setMotDePasse($mot_de_passe)
+    public function setMotDePasse($motDePasse)
     {
-        $this->mot_de_passe = $mot_de_passe;
+        $this->motDePasse = $motDePasse;
     }
 
     /**
@@ -192,15 +169,15 @@ class Utilisateur extends CI_Controller
      */
     public function getAdressePostale()
     {
-        return $this->adresse_postale;
+        return $this->adressePostale;
     }
 
     /**
      * @param mixed $adresse_postale
      */
-    public function setAdressePostale($adresse_postale)
+    public function setAdressePostale($adressePostale)
     {
-        $this->adresse_postale = $adresse_postale;
+        $this->adressePostale = $adressePostale;
     }
 
     /**
@@ -208,15 +185,15 @@ class Utilisateur extends CI_Controller
      */
     public function getCodePostal()
     {
-        return $this->code_postal;
+        return $this->codePostal;
     }
 
     /**
      * @param mixed $code_postal
      */
-    public function setCodePostal($code_postal)
+    public function setCodePostal($codePostal)
     {
-        $this->code_postal = $code_postal;
+        $this->codePostal = $codePostal;
     }
 
     /**
@@ -224,15 +201,15 @@ class Utilisateur extends CI_Controller
      */
     public function getAdresseEmail()
     {
-        return $this->adresse_email;
+        return $this->adresseEmail;
     }
 
     /**
      * @param mixed $adresse_email
      */
-    public function setAdresseEmail($adresse_email)
+    public function setAdresseEmail($adresseEmail)
     {
-        $this->adresse_email = $adresse_email;
+        $this->adresseEmail = $adresseEmail;
     }
 
     /**
@@ -240,15 +217,15 @@ class Utilisateur extends CI_Controller
      */
     public function getNumeroDeTelephone()
     {
-        return $this->numero_de_telephone;
+        return $this->numeroDeTelephone;
     }
 
     /**
      * @param mixed $numero_de_telephone
      */
-    public function setNumeroDeTelephone($numero_de_telephone)
+    public function setNumeroDeTelephone($numeroDeTelephone)
     {
-        $this->numero_de_telephone = $numero_de_telephone;
+        $this->numeroDeTelephone = $numeroDeTelephone;
     }
 
     /**
@@ -256,15 +233,15 @@ class Utilisateur extends CI_Controller
      */
     public function getAdresseIpDerniereConnexion()
     {
-        return $this->adresse_ip_derniere_connexion;
+        return $this->adresseIpDerniereConnexion;
     }
 
     /**
      * @param mixed $adresse_ip_derniere_connexion
      */
-    public function setAdresseIpDerniereConnexion($adresse_ip_derniere_connexion)
+    public function setAdresseIpDerniereConnexion($adresseIpDerniereConnexion)
     {
-        $this->adresse_ip_derniere_connexion = $adresse_ip_derniere_connexion;
+        $this->adresseIpDerniereConnexion = $adresseIpDerniereConnexion;
     }
 
     /**
@@ -272,15 +249,15 @@ class Utilisateur extends CI_Controller
      */
     public function getDateInscription()
     {
-        return $this->date_inscription;
+        return $this->dateInscription;
     }
 
     /**
      * @param mixed $date_inscription
      */
-    public function setDateInscription($date_inscription)
+    public function setDateInscription($dateInscription)
     {
-        $this->date_inscription = $date_inscription;
+        $this->dateInscription = $dateInscription;
     }
 
     /**
@@ -288,15 +265,15 @@ class Utilisateur extends CI_Controller
      */
     public function getTypeAbonnement()
     {
-        return $this->type_abonnement;
+        return $this->typeAbonnement;
     }
 
     /**
      * @param mixed $type_abonnement
      */
-    public function setTypeAbonnement($type_abonnement)
+    public function setTypeAbonnement($typeAbonnement)
     {
-        $this->type_abonnement = $type_abonnement;
+        $this->typeAbonnement = $typeAbonnement;
     }
 
     /**
@@ -304,31 +281,31 @@ class Utilisateur extends CI_Controller
      */
     public function getDateSouscription()
     {
-        return $this->date_souscription;
+        return $this->dateSouscription;
     }
 
     /**
      * @param mixed $date_souscription
      */
-    public function setDateSouscription($date_souscription)
+    public function setDateSouscription($dateSouscription)
     {
-        $this->date_souscription = $date_souscription;
+        $this->dateSouscription = $dateSouscription;
     }
 
     /**
      * @return string
      */
-    public function getRole()
+    public function getTypeUtilisateur()
     {
-        return $this->role;
+        return $this->typeUtilisateur;
     }
 
     /**
      * @param string $droits_compte
      */
-    public function setRole($role)
+    public function setTypeUtilisateur($typeUtilisateur)
     {
-        $this->role = $role;
+        $this->typeUtilisateur = $typeUtilisateur;
     }
 
     /**
@@ -336,15 +313,15 @@ class Utilisateur extends CI_Controller
      */
     public function getStatutCompte()
     {
-        return $this->statut_compte;
+        return $this->statutCompte;
     }
 
     /**
      * @param mixed $statut_compte
      */
-    public function setStatutCompte($statut_compte)
+    public function setStatutCompte($statutCompte)
     {
-        $this->statut_compte = $statut_compte;
+        $this->statutCompte = $statutCompte;
     }
 
     /**
@@ -352,14 +329,14 @@ class Utilisateur extends CI_Controller
      */
     public function getTokenId()
     {
-        return $this->token_id;
+        return $this->tokenId;
     }
 
     /**
      * @param mixed $token_id
      */
-    public function setTokenId($token_id)
+    public function setTokenId($tokenId)
     {
-        $this->token_id = $token_id;
+        $this->tokenId = $tokenId;
     }
 }
