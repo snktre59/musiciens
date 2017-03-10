@@ -2,7 +2,29 @@
     <i></i>
     <canvas id="spiders" class="hidden-xs" width="1280" height="451"></canvas>
 
-    <section id="head-panel">
+    <section id="CONNEXION">
+        <h2 class="title-main">Déjà Inscrit ? Connectez-vous</h2>
+        <?php $attributs = array('id' => 'FORMULAIRE_CONNEXION_MUSICIEN', 'class' => 'pure-form pure-form-stacked'); ?>
+        <?php echo form_open("utilisateurs/connexion", $attributs); ?><!-- Changer l'ID lors du switch -->
+            <fieldset>
+                <label for="ADRESSE_EMAIL_CONNEXION">Adresse Email : *</label>
+                <input id="ADRESSE_EMAIL_CONNEXION" type="email" name="ADRESSE_EMAIL_CONNEXION" placeholder="Adresse email" value="<?php echo set_value('ADRESSE_EMAIL_CONNEXION'); ?>">
+                <?php echo form_error('ADRESSE_EMAIL_CONNEXION'); ?>
+
+                <label for="MOT_DE_PASSE_CONNEXION">Mot de passe : *</label>
+                <input id="MOT_DE_PASSE_CONNEXION" type="password" name="MOT_DE_PASSE_CONNEXION" placeholder="Mot de passe" value="<?php echo set_value('MOT_DE_PASSE_CONNEXION'); ?>">
+                <?php echo form_error('MOT_DE_PASSE_CONNEXION'); ?>
+
+                <label class="italic">Les champs marqués par un astérix sont obligatoires.</label>
+
+                <label class="italic"><a href="<?php echo base_url('utilisateurs/mot_de_passe_oublie'); ?>">Mot de passe oublié ?</a></label><br />
+
+                <button type="submit" class="pure-button">Connexion</button>
+            </fieldset>
+        <?php echo form_close(); ?>
+    </section>
+
+    <section id="INSCRIPTION">
         <h2 class="title-main">Trouvez un musicien près de chez vous !</h2>
         <label>Vous recherchez un groupe ?</label>&nbsp;<label>Vous recherchez un musicien ?</label>
         <?php $attributs = array('id' => 'FORMULAIRE_INSCRIPTION_MUSICIEN', 'class' => 'pure-form pure-form-stacked'); ?>

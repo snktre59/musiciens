@@ -12,7 +12,7 @@ class Accueil extends CI_Controller
 		//Définition de la meta-description
 		$this->layout->set_meta_description("Retrouvez les dernières actualités du groupe, les prochains évènements et bien plus encore !");
 		
-		$this->layout->ajouter_js("nodes");
+		//$this->layout->ajouter_js("nodes");
 		 
 		// Affichage du template
 		$this->layout->view('accueil/accueil');

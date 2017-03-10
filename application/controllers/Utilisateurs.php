@@ -20,15 +20,15 @@ class Utilisateurs extends CI_Controller {
 		$this->layout->ajouter_css("utilisateurs/connexion");
 	 
 	 	// Définition des règles de champs
-		$this->form_validation->set_rules('ADRESSE_EMAIL', '"Adresse Email"', 'trim|required|valid_email|encode_php_tags');
-		$this->form_validation->set_rules('MOT_DE_PASSE', '"Mot de passe"', 'trim|required|encode_php_tags');
+		$this->form_validation->set_rules('ADRESSE_EMAIL_CONNEXION', '"Adresse Email"', 'trim|required|valid_email|encode_php_tags');
+		$this->form_validation->set_rules('MOT_DE_PASSE_CONNEXION', '"Mot de passe"', 'trim|required|encode_php_tags');
 	
 		if ($this->form_validation->run())
 		{
 			// Récupération des variables postées
-			$adresse_email = $this->input->post('ADRESSE_EMAIL');
-			$mot_de_passe = $this->input->post('MOT_DE_PASSE');
-			$remember = $this->input->post('REMEMBER');
+			$adresse_email = $this->input->post('ADRESSE_EMAIL_CONNEXION');
+			$mot_de_passe = $this->input->post('MOT_DE_PASSE_CONNEXION');
+			//$remember = $this->input->post('REMEMBER');
 			
 			// Récupération des informations du compte utilisateur
 			$userData = $this->utilisateurs_model->getDataUtilisateurByEmail($adresse_email);
@@ -68,15 +68,15 @@ class Utilisateurs extends CI_Controller {
 					$this->session->set_userdata("utilisateurCourant", $utilisateur);
 					
 					// Mémorisation de la session
-					if($remember == "on"){
+					/*if($remember == "on"){
 						$this->session->mark_as_temp('utilisateurCourant', 604800);
-					}
+					}*/
 					
 					// Ajout d'un message de confirmation
 					$this->layout->set_flashdata_message("green", "Vous êtes dès à présent connecté !");
 					
 					// Redirection et affichage du message de confirmation
-					redirect("accueil/index");
+					redirect("accueil");
 				
 				// Les identifiants du compte sont incorrects	
 				} else {
@@ -85,14 +85,14 @@ class Utilisateurs extends CI_Controller {
 					$this->layout->set_flashdata_message("red", "Les informations d'identification sont incorrectes, veuillez réessayer.");
 					
 					// Redirection et affichage du message d'erreur
-					redirect("utilisateurs/connexion");
+					redirect("accueil");
 				}
 			}
 		}
 		else
 		{
 			$data["toto"] = "TOTO";
-			$this->layout->view('utilisateurs/connexion', $data);
+			$this->layout->view('accueil/accueil', $data);
 		}
 	}
 
@@ -118,7 +118,7 @@ class Utilisateurs extends CI_Controller {
 		$this->form_validation->set_rules('TYPE_UTILISATEUR', '"Rôle"', 'trim|required|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE', '"Mot de passe"', 'trim|required|matches[MOT_DE_PASSE_CONFIRMATION]|encode_php_tags');
 		$this->form_validation->set_rules('MOT_DE_PASSE_CONFIRMATION', '"Mot de passe confirmation"', 'trim|required|encode_php_tags');
-		$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|required|numeric|exact_length[10]|encode_php_tags');
+		$this->form_validation->set_rules('NUMERO_DE_TELEPHONE', '"Numéro de téléphone"', 'trim|numeric|exact_length[10]|encode_php_tags');
 		$this->form_validation->set_rules('CODE_POSTAL', '"Code postal"', 'trim|numeric|exact_length[5]|required|encode_php_tags');
 		$this->form_validation->set_rules('VILLE', '"Ville"', 'trim|required|encode_php_tags');
 		//var_dump($this->input->post()); die();
@@ -146,7 +146,7 @@ class Utilisateurs extends CI_Controller {
 				$this->load->library("email_templates");
 				
 				$message = '
-					Vous vous êtes inscrit sur notre site internet et nous vous en remercions. Pour valider votre inscription, merci de cliquer sur <a href="'.base_url().'/utilisateurs/confirmation/adresse_email='.$adresse_email.'&token_id='.$token_id.'">ce lien</a>.<br />
+					Vous vous êtes inscrit sur notre site internet et nous vous en remercions. Pour valider votre inscription, merci de cliquer sur <a href="'.base_url().'/utilisateurs/confirmation/adresse_email='.$adresseEmail.'&token_id='.$tokenId.'">ce lien</a>.<br />
 					A bientôt sur undershift.fr !<br/>
 					Under Shift.
 				';
